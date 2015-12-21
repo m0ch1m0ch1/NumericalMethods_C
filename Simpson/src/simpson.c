@@ -13,7 +13,7 @@ double Simpson(int n, double Xin, double Xen){
   h = (Xen - Xin) / ( 2.0 * (double) n );
 
   for (i = 0; i < n ; i++){
-    X = Xin + 2.0 * i * h ;
+    X = Xin + 2.0 * (double ) i * h ;
     S += ( func(X) + 4.0 * func( X + 1.0 * h ) + func( X + 2.0 * h ) ) * h / 3.0;
   }
   return S;
@@ -29,7 +29,7 @@ double Daikei(int n, double Xin, double Xen){
   h = (Xen - Xin) / (double) n;
 
   for (i = 0 ; i < n ; i ++){
-    X = Xin + i * h ;
+    X = Xin + (double ) i * h ;
     S += (func(X) + func (X + 1.0 * h)) * h / 2.0;
   }
 
