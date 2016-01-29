@@ -1,22 +1,26 @@
-#include<stdio.h>
-#include<math.h>
-#include<time.h>
+#include <stdio.h>
+#include <math.h>
+#include <time.h>
 
-#define Number		2	//要素数
-#define t_END		1000	//試行時間 
-#define dt		0.01	//固定刻み
+#define Number		  4	 //要素数
+#define t_END		  100	 //試行時間
+#define dt		  0.001	 //固定刻み
 
 void   RungeKutta (double  a[Number]);
-double funcx0     (double t,double x[Number]); 
-double funcx1     (double t,double x[Number]); 
+double funcx0     (double t,double x[Number]);
+double funcx1     (double t,double x[Number]);
+double funcx2     (double t,double x[Number]);
+double funcx3     (double t,double x[Number]);
 
 int main(){
 	double x[Number];
 	clock_t start,end;
 	start = clock();
 
-	x[0]=4.0;
-	x[1]=2.0; 
+	x[0]=1.0;
+	x[1]=0.2;
+	x[2]=0.0;
+	x[3]=0.0;
 
 	RungeKutta(x);
 
@@ -48,19 +52,21 @@ void RungeKutta(double a[Number]){
 	fprintf(fp1,"\t %3.5lf \t",time);
 	for (l=0;l<Number;l++){fprintf(fp1," %lf \t",a[l]);}
 	fprintf(fp1,"\n");
-	
+
 	printf("******************************Start******************************\n");
 
 	tend=(int)t_END/dt;
 	for (i=0;i<tend;i++){
-		for(k=0;k<4;k++){ 
-			if(k==0){t=time;     for (l=0;l<Number;l++){da[l]=a[l];               }}
-			if(k==1){t=time+dt/2;for (l=0;l<Number;l++){da[l]=a[l]+(dca[l][0])/2; }}
-			if(k==2){t=time+dt/2;for (l=0;l<Number;l++){da[l]=a[l]+(dca[l][1])/2; }}
-			if(k==3){t=time+dt;  for (l=0;l<Number;l++){da[l]=a[l]+dca[l][2];     }}
+		for(k=0;k<4;k++){
+			if(k==0)     {t=time;     for (l=0;l<Number;l++){da[l]=a[l];               }}
+			else if(k==1){t=time+dt/2;for (l=0;l<Number;l++){da[l]=a[l]+(dca[l][0])/2; }}
+			else if(k==2){t=time+dt/2;for (l=0;l<Number;l++){da[l]=a[l]+(dca[l][1])/2; }}
+			else if(k==3){t=time+dt;  for (l=0;l<Number;l++){da[l]=a[l]+dca[l][2];     }}
 			dca[0][k]=dt*funcx0(t,da);
 			dca[1][k]=dt*funcx1(t,da);
-        	}
+			dca[2][k]=dt*funcx2(t,da);
+			dca[3][k]=dt*funcx3(t,da);
+    }
 
 		for (l=0;l<Number;l++){
 			a[l]=a[l]+(dca[l][0]+2*dca[l][1]+2*dca[l][2]+dca[l][3])/6;
@@ -80,12 +86,13 @@ void RungeKutta(double a[Number]){
 }
 
 double funcx0(double t,double x[Number])
-{return x[0] - x[0] * x[1]; }
+{return 1.0 * x[2] - 1.0 * x[0] * x[1] ; }
 
 double funcx1(double t,double x[Number])
-{return x[0] * x[1] - x[1];}
+{return - 1.0 * x[0] * x[1] + 1.0 * x[2] + 1.0 * x[2]; }
 
+double funcx2(double t,double x[Number])
+{return + 1.0 * x[0] * x[1] - 1.0 * x[2] - 1.0 * x[2]; }
 
-
-
-
+double funcx3(double t,double x[Number])
+{return 1.0 * x[2];}
