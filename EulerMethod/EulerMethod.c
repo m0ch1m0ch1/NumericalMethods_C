@@ -1,10 +1,10 @@
 /********************
-     Euler_Method.c 
+     Euler_Method.c
 *********************/
 
 #include <stdio.h>
 #define dt	0.001
-#define t_end	10.00 
+#define t_end	10.00
 
 double func_x (double time,double x, double y);
 double func_y (double time,double x, double y);
@@ -15,6 +15,7 @@ int main()
 	double  time =  0.00;	//時間
 	double     x =  4;	//初期値
 	double     y =  2;	//
+	double     t1,t2;
 	FILE *Output;
 
 	Output = fopen("Output.dat","w");
@@ -22,8 +23,10 @@ int main()
 	fprintf(Output, "  %lf  \t  %lf  \t  %lf  \n", time, x, y);
 
 	while(1){
-		x = x + func_x(time, x, y) * dt; //dx/dt
-		y = y + func_y(time, x, y) * dt; //dy/dt
+		t1=func_x(time, x, y);
+		t2=func_y(time, x, y);
+		x = x + t1 * dt; //dx/dt
+		y = y + t2 * dt; //dy/dt
 		time = time + dt;
 
 		if ( time >= t_end){ break; }
@@ -51,5 +54,5 @@ void Graph(void){
 	fprintf(gp,"\"Output.dat\" using 1:2 title \"x\" with l,");
 	fprintf(gp,"\"Output.dat\" using 1:3 title \"y\" with l\n");
 	fflush(gp);
-	pclose(gp); 
+	pclose(gp);
 }
