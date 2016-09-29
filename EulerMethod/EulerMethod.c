@@ -15,7 +15,9 @@ int main()
 	double  time =  0.00;	//時間
 	double     x =  4;	//初期値
 	double     y =  2;	//
-	double     t1,t2;
+    double    nx =  0;
+    double    ny =  0; 
+	double      t1,t2;
 	FILE *Output;
 
 	Output = fopen("Output.dat","w");
@@ -25,9 +27,11 @@ int main()
 	while(1){
 		t1=func_x(time, x, y);
 		t2=func_y(time, x, y);
-		x = x + t1 * dt; //dx/dt
-		y = y + t2 * dt; //dy/dt
-		time = time + dt;
+		nx = x + t1 * dt; //dx/dt
+		ny = y + t2 * dt; //dy/dt
+		 x = nx;
+         y = ny;
+        time = time + dt;
 
 		if ( time >= t_end){ break; }
 		fprintf(Output,"  %lf  \t  %lf  \t  %lf  \n", time, x, y);
