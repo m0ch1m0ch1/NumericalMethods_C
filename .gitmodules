@@ -1,6 +1,6 @@
 [submodule "gear-method"]
 	path = gear-method
 	url = https://m0ch1m0ch1@github.com/m0ch1m0ch1/gear-method.git
-[submodule "Gillespie_Method"]
-	path = Gillespie_Method
-	url = https://m0ch1m0ch1@github.com/m0ch1m0ch1/Gillespie_Method.git
+[submodule "gillespie-method"]
+	path = gillespie-method
+	url = https://m0ch1m0ch1@github.com/m0ch1m0ch1/gillespie-method.git
