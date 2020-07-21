@@ -1,5 +1,5 @@
-# NumericalMethods_C
+# numerical-calculation-lib
 
-## 研究用数値計算ライブラリ(仮)
-- 随時数値計算プログラムを追加し、最終的にはライブラリ化する
-- C言語で記述
+## Summary
+
+The library for numerical calculation described in the C language.
