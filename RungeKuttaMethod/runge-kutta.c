@@ -2,9 +2,9 @@
 #include <math.h>
 #include <time.h>
 
-#define Number		  4	 //要素数
-#define t_END		  100	 //試行時間
-#define dt		  0.001	 //固定刻み
+#define Number		 	4	 	//要素数
+#define t_END		  100	 	//試行時間
+#define dt		  	0.001	 	//固定刻み
 
 void   RungeKutta (double  a[Number]);
 double funcx0     (double t,double x[Number]);
@@ -78,7 +78,7 @@ void RungeKutta(double a[Number]){
 		if (mod == 0){
 			fprintf(fp1,"\t %3.5lf \t",time);
 			for (l=0;l<Number;l++){fprintf(fp1," %lf \t",a[l]);}
-      			fprintf(fp1,"\n");
+				fprintf(fp1,"\n");
 		}
 	}
 

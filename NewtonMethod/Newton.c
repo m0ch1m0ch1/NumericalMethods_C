@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
- 
+
 #define  MaxCount 1.0e+2
 #define Threshold 1.0e-5
 

@@ -3,7 +3,7 @@
 
 /*解を算出し出力する関数*/
 double answer(double a1,double b1, double c1){
-  
+
 	double x1, x2,d;
 	d = b1 * b1 - 4 * a1 * c1;	/*判別式*/
 

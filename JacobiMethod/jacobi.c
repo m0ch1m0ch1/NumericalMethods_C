@@ -5,7 +5,7 @@
 #define E 1.0E-10
 
 int main(){
-		
+
 	double A[N][N] = { 3, 0.01, 0.1, 0.01, 2, 0.01, 0.1, 0.01, 1} ;
 	double c[N][N];
 	double x[N][N];
@@ -22,9 +22,9 @@ int main(){
 		for (j = 0; j < N ; j++ ){
 			x[i][j] = 0;
 			if ( i == j ){
-				x[i][j] = 1;			
+				x[i][j] = 1;
 			}
-		}	
+		}
 	}
 
 while(1){
@@ -38,13 +38,13 @@ while(1){
 				absMax_i = i;
 				absMax_j = j;
 			}
-		}	
+		}
 	}
 
 	if ( Max < E ){
 		break;
 	}
-		
+
 	//---Algo_2
 	s = (A[absMax_i][absMax_i] - A[absMax_j][absMax_j])/2.0;
 
@@ -62,14 +62,14 @@ while(1){
 	//---Algo_3
 	for (i = 0; i < N ; i++ ){
 		for (j = 0; j < N ; j++ ){
-			if ( i == j ){ 
-				 P[i][j] = 1.0;					
-				PT[i][j] = 1.0;		
-			}	
+			if ( i == j ){
+				P[i][j] = 1.0;
+				PT[i][j] = 1.0;
+			}
 			else {
-				 P[i][j] = 0.0;
+				P[i][j] = 0.0;
 				PT[i][j] = 0.0;
-			}	
+			}
 		}
 	}
 
@@ -77,20 +77,20 @@ while(1){
 	P[absMax_i][absMax_j] = - sin_phi;
 	P[absMax_j][absMax_i] = + sin_phi;
 	P[absMax_j][absMax_j] = + cos_phi;
-	
+
 	PT[absMax_i][absMax_i] = + cos_phi;
 	PT[absMax_j][absMax_i] = - sin_phi;
 	PT[absMax_i][absMax_j] = + sin_phi;
 	PT[absMax_j][absMax_j] = + cos_phi;
-	
+
 	for(i=0;i<N;i++) {
-                for(j=0;j<N;j++) {
+        for(j=0;j<N;j++) {
 			c[i][j] = 0.0;
-                        for(k=0;k<N;k++) {
-                                c[i][j] += x[i][k]*P[k][j];
-                        }
-                }
+            for(k=0;k<N;k++) {
+                c[i][j] += x[i][k]*P[k][j];
+            }
         }
+	}
 
 	for(i=0;i<N;i++) {
                 for(j=0;j<N;j++) {
@@ -112,24 +112,26 @@ while(1){
 		}
 	}
 	for(i=0;i<N;i++) {
-                for(j=0;j<N;j++) {
-                        for(k=0;k<N;k++) {
-                                A[i][j] += c[i][k]*P[k][j];
-                        }
-                }
-        }
+        for(j=0;j<N;j++) {
+            for(k=0;k<N;k++) {
+                A[i][j] += c[i][k]*P[k][j];
+            }
+		}
+    }
 }
 	for(i=0;i<N;i++) {
-                for(j=0;j<N;j++) {
+        for(j=0;j<N;j++) {
 			printf("%.16lf\t",x[i][j]);
-                }
-		printf("\n");
         }
+		printf("\n");
+    }
+
 	for(i=0;i<N;i++) {
-                for(j=0;j<N;j++) {
+        for(j=0;j<N;j++) {
 			printf("%.16lf\t",A[i][j]);
-                }
-		printf("\n");
         }
+		printf("\n");
+    }
+
 	return 0;
 }

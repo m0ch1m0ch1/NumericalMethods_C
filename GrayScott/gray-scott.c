@@ -7,18 +7,18 @@
 #define EndTime 1000
 
 /********************************************************************
- 2U + V -> 3U
-      U -> P
+2U + V -> 3U
+U -> P
         V : 原材料となる化学物質
         U : 中間生成物かつ自己触媒物質
         P : 最終生成物
 
- u/t = DuΔu + u^2v - (F+k)u
- v/t = DvΔv - u^2v + F(1-v)
-         du : U の拡散率
-         dv : V の拡散率
-         F  : 原材料 V の外部からの供給率＆中間生成物 U の外部への流出率
-         k  : 中間生成物 U の最終生成物 P への転換率（U の除去率）
+u/t = DuΔu + u^2v - (F+k)u
+v/t = DvΔv - u^2v + F(1-v)
+du : U の拡散率
+dv : V の拡散率
+F  : 原材料 V の外部からの供給率＆中間生成物 U の外部への流出率
+k  : 中間生成物 U の最終生成物 P への転換率（U の除去率）
 *********************************************************************/
 
 void Output(double u[N][N][2], double v[N][N][2],int k);
@@ -43,7 +43,7 @@ int main(){
 	int i, j, k;
 	int rotation, count;
 
-        // Initial values
+    // Initial values
 	ht    = 0.1;
 	hx    = 1.0/(N-1);
 	hy    = 1.0/(N-1);
@@ -63,32 +63,32 @@ int main(){
 
 	// Gray-Scott Model Calculation
 	for (k=0; k < EndTime * (int) (1.0 / ht); k++) {
-	  	for(i=1; i<N-1; i++) {
-  			u[N-1][i][0] = u[1][i][0];
-  			  u[0][i][0] = u[N-2][i][0];
-  			u[i][N-1][0] = u[i][1][0];
-  			  u[i][0][0] = u[i][N-2][0];
+		for(i=1; i<N-1; i++) {
+			u[N-1][i][0] = u[1][i][0];
+			u[0][i][0] = u[N-2][i][0];
+			u[i][N-1][0] = u[i][1][0];
+			u[i][0][0] = u[i][N-2][0];
 
-  			v[N-1][i][0] = v[1][i][0];
-  			  v[0][i][0] = v[N-2][i][0];
-  			v[i][N-1][0] = v[i][1][0];
-  			  v[i][0][0] = v[i][N-2][0];
-  		}
+			v[N-1][i][0] = v[1][i][0];
+			v[0][i][0] = v[N-2][i][0];
+			v[i][N-1][0] = v[i][1][0];
+			v[i][0][0] = v[i][N-2][0];
+		}
 		for (i=1; i<N-1; i++) {
-    			for (j=1; j<N-1; j++) {
-    				// Calculation U
-    				delux = Du*(u[i+1][j][0] -2*u[i][j][0] +u[i-1][j][0])/(hx*hx);
-						deluy = Du*(u[i][j+1][0] -2*u[i][j][0] +u[i][j-1][0])/(hy*hy);
-						u[i][j][1] = u[i][j][0] +ht*
-				 		(delux +deluy -u[i][j][0]*v[i][j][0]*v[i][j][0] +F*(1-u[i][j][0]));
+			for (j=1; j<N-1; j++) {
+    		// Calculation U
+			delux = Du*(u[i+1][j][0] -2*u[i][j][0] +u[i-1][j][0])/(hx*hx);
+			deluy = Du*(u[i][j+1][0] -2*u[i][j][0] +u[i][j-1][0])/(hy*hy);
+			u[i][j][1] = u[i][j][0] +ht*
+				(delux +deluy -u[i][j][0]*v[i][j][0]*v[i][j][0] +F*(1-u[i][j][0]));
 
-						// Calcuration V
-						delvx = Dv*(v[i+1][j][0] -2*v[i][j][0] +v[i-1][j][0])/(hx*hx);
-						delvy = Dv*(v[i][j+1][0] -2*v[i][j][0] +v[i][j-1][0])/(hy*hy);
-						v[i][j][1] = v[i][j][0] +ht*
-				 		(delvx +delvy +u[i][j][0]*v[i][j][0]*v[i][j][0] -(F+kappa)*v[i][j][0]);
-					}
-    }
+			// Calcuration V
+			delvx = Dv*(v[i+1][j][0] -2*v[i][j][0] +v[i-1][j][0])/(hx*hx);
+			delvy = Dv*(v[i][j+1][0] -2*v[i][j][0] +v[i][j-1][0])/(hy*hy);
+			v[i][j][1] = v[i][j][0] +ht*
+				(delvx +delvy +u[i][j][0]*v[i][j][0]*v[i][j][0] -(F+kappa)*v[i][j][0]);
+			}
+		}
 
 	  	// output Data
 		if ((k % 1000) == 0) {
@@ -104,7 +104,7 @@ int main(){
 			}
 		}
 		timer = timer +ht;
-  	}
+	}
 	return 0;
 }
 
@@ -140,7 +140,7 @@ void Output(double u[N][N][2], double v[N][N][2], int k){
 	fprintf(gp,"splot \"%s\" matrix w l\n",f1name);
 	fprintf(gp,"\n");
 	fprintf(gp,"set output \"./GR/Graph_VGR_%d.png\"\n",k);
- 	fprintf(gp,"set contour\n");
+	fprintf(gp,"set contour\n");
 	fprintf(gp,"splot \"%s\" matrix w l\n",f2name);
 	fprintf(gp,"\n");
 	fflush(gp);
