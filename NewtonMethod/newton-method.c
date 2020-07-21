@@ -31,7 +31,8 @@ int main(void){
 			break;
 		}
 	}
-return 0;
+
+	return 0;
 }
 
 double f(double x)
